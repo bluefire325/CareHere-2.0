@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "973500011805",
+    "firebase_url": "https://mobileproj-ec094.firebaseio.com",
+    "project_id": "mobileproj-ec094",
+    "storage_bucket": "mobileproj-ec094.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973500011805:android:a3358c50a381ca33e33df4",
+        "android_client_info": {
+          "package_name": "Care.here"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "973500011805-8756qm3f7gr3ug8dtbsucu6j51ca1g4f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "Care.here",
+            "certificate_hash": "a57ff4462d5152d9253f757f5c1cf29158c3751a"
+          }
+        },
+        {
+          "client_id": "973500011805-l1giqg25upuq7qh9rp8oqav1kr5bbioi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnZqsZVRmHQaePz84CgX-T29-tg3KEAzs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "973500011805-l1giqg25upuq7qh9rp8oqav1kr5bbioi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,9 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'home_page.dart';
 
+ String name;
+String email;
+String imageUrl;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
+ Future<FirebaseUser> handlesignin() async {
+  GoogleSignInAccount googleUser = await googleSignIn.signIn();
+  GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+  final AuthCredential credential = GoogleAuthProvider.getCredential(
+    accessToken: googleAuth.accessToken,
+    idToken: googleAuth.idToken,
+  );
+  final AuthResult authResult = await _auth.signInWithCredential(credential);
+  FirebaseUser user = authResult.user;
+ assert(user.email != null);
+  assert(user.displayName != null);
+  assert(user.photoUrl != null);
+
+  
+
+  name = user.displayName;
+  email = user.email;
+  imageUrl = user.photoUrl;
+
+  if (name.contains(" ")) {
+    name = name.substring(0, name.indexOf(" "));
+  }
+  assert(!user.isAnonymous);
+  assert(await user.getIdToken() != null);
+
+  final FirebaseUser currentUser = await _auth.currentUser();
+  assert(user.uid == currentUser.uid);
+
+  return user;
+
+
+}
+class Signout{
+  void signin(){
+    handlesignin();
+    }
+
+  
+
+  
+}
+ singout(){
+  googleSignIn.signOut();
+  print("signout");
+}
+
+
+
+  
+
+
 class LoginPage extends StatefulWidget {
   static String tag = 'Login-page';
+
+ 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -14,8 +76,6 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget build(BuildContext context) {
     
-
-
     final logo = Hero(
       tag: 'hero',
       child: CircleAvatar(backgroundColor: Colors.transparent,
@@ -75,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
 
-    final loginButton = Padding(
+    final googleacccount = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
         borderRadius: BorderRadius.circular(30.0),
@@ -85,10 +145,13 @@ class _LoginPageState extends State<LoginPage> {
           minWidth: 200.0,
           height: 42.0,
           onPressed: (){
-            Navigator.of(context).pushNamed(HomePage.tag);
+            handlesignin().whenComplete((){
+              Navigator.of(context).pushNamed(HomePage.tag);
+            });
+            
           },
           color: Colors.lightBlueAccent,
-          child: Text('Log in', style: TextStyle(color: Colors.white),
+          child: Text('Log in With Google Acc', style: TextStyle(color: Colors.white),
           ),
 
         ),
@@ -120,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 8.0),
             password,
             SizedBox(height: 24.0),
-            loginButton,
+            googleacccount,
             registrationButton,
             SizedBox(height: 15.0),
             forgotLabel

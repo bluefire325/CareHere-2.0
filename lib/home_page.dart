@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:login_page/diary_page.dart';
 
@@ -10,18 +11,22 @@ import 'chat_page.dart';
 
 
 
+
 class HomePage extends StatelessWidget {
   
   static String tag = 'Home_page';
-  
+ 
 
   @override
   Widget build(BuildContext context) {
+    
+   
+
     final drawerHeader = UserAccountsDrawerHeader(
-      accountName: Text('John Clyde Dagpin'),
-      accountEmail: Text('johnclydedagpin@email.com'),
+      accountName: Text(name),
+      accountEmail: Text(email),
       currentAccountPicture: CircleAvatar(
-        child: Image.asset('assets/1.jpg'),
+        backgroundImage: NetworkImage(imageUrl),
         backgroundColor:  Colors.white,),
         
     );
@@ -51,9 +56,11 @@ class HomePage extends StatelessWidget {
         ),
         ListTile(
           title: Text('Logout'),
-        onTap: () => Navigator.of(context).pushNamed(LoginPage.tag),
-        ),
-        
+        onTap: (){
+            singout();
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return LoginPage();}), ModalRoute.withName('/'));
+          },
+        )
         
         
       ],
@@ -65,18 +72,18 @@ class HomePage extends StatelessWidget {
         child: CircleAvatar(
           radius: 72.0,
           backgroundColor: Colors.transparent,
-          backgroundImage: AssetImage('assets/1.jpg'),),),);
+          backgroundImage: NetworkImage(imageUrl),),),);
 
 
     final welcome = Padding(
       padding: EdgeInsets.all(8.0),
-      child: Text('Welcome Clyde ',
+      child: Text(name,
       style: TextStyle(fontSize: 28.0, color: Colors.white),),
     );
           
     final sample = Padding(
       padding: EdgeInsets.all(8.0),
-      child: Text('clyde gwapo dclyde gwapo clyde gwapo ',
+      child: Text('Welcome ' + name,
       style: TextStyle(fontSize: 16.0, color: Colors.white),),
     );
 
@@ -109,4 +116,5 @@ class HomePage extends StatelessWidget {
   
   
 }
+
 
